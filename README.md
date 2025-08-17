@@ -102,3 +102,7 @@ Live demos:<br>
 [Live demo with Immer](https://codesandbox.io/p/sandbox/rn4qsr?file=%2Fsrc%2FPlusButton.jsx)
 
 🔹 A store initialized outside a component can be used as the component's remount-persistent state.
+
+---
+
+- [Shared async action state tracking](https://github.com/t8dev/react-pending)
