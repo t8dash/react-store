@@ -1,5 +1,5 @@
-import {useEffect, useMemo, useRef, useState} from 'react';
 import {isStore, type Store} from '@t8/store';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 export type SetStoreState<T> = Store<T>['setState'];
 export type ShouldUpdateCallback<T> = (nextState: T, prevState: T) => boolean;
