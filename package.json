@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/t8dev/react-store.git"
+    "url": "git+https://github.com/t8dash/react-store.git"
   },
   "keywords": [
     "react",
@@ -31,6 +31,6 @@
     "@types/react": "^19.1.10"
   },
   "dependencies": {
-    "@t8/store": "^1.0.0"
+    "@t8/store": "^1.0.1"
   }
 }
