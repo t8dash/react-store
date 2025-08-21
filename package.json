@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/t8js/react-store.git"
   },
-  "homepage": "https://t8js.github.io/react-store",
+  "homepage": "https://t8.js.org/react-store",
   "keywords": [
     "react",
     "shared state",
