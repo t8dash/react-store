@@ -105,4 +105,4 @@ Live demos:<br>
 
 ---
 
-- [Shared async action state tracking](https://github.com/t8dash/react-pending)
+- [Shared async action state tracking](https://github.com/t8js/react-pending)
