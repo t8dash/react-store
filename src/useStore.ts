@@ -33,6 +33,7 @@ export function useStore<T>(
 
     let state = store.getState();
     let setState = useMemo(() => store.setState.bind(store), [store]);
+    let initialStoreRevision = useRef(store.revision);
 
     useEffect(() => {
         if (!shouldUpdate) return;
@@ -45,9 +46,13 @@ export function useStore<T>(
                 setRevision(Math.random());
         });
 
+        // Trigger a rerender if the store state changed after the component
+        // last read it and before the component subscribed to its changes.
         if (!initedRef.current) {
             initedRef.current = true;
-            setRevision(Math.random());
+
+            if (store.revision !== initialStoreRevision.current)
+                setRevision(Math.random());
         }
 
         return () => {
