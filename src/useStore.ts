@@ -58,6 +58,7 @@ export function useStore<T>(
         return () => {
             unsubscribe();
             initedRef.current = false;
+            initialStoreRevision.current = store.revision;
         };
     }, [store, shouldUpdate]);
 
