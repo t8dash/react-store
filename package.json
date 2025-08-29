@@ -32,6 +32,6 @@
     "@types/react": "^19.1.10"
   },
   "dependencies": {
-    "@t8/store": "^1.1.0"
+    "@t8/store": "^1.1.1"
   }
 }
