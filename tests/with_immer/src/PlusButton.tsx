@@ -1,6 +1,6 @@
+import { produce } from "immer";
 import { useContext } from "react";
 import { useStore } from "../../..";
-import { produce } from "immer";
 import { AppContext } from "./AppContext";
 
 export const PlusButton = () => {
@@ -14,7 +14,7 @@ export const PlusButton = () => {
         // Immer makes the code of immutable state updates look like
         // direct mutations, which can facilitate manipulating nested data.
         draft.counter++;
-      })
+      }),
     );
   };
 
