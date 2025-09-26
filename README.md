@@ -16,34 +16,34 @@ Installation: `npm i @t8/react-store`
 Moving the local state to the full-fledged shared state:
 
 ```diff
-  import {createContext, useContext} from 'react';
-+ import {Store, useStore} from '@t8/react-store';
+  import { createContext, useContext } from "react";
++ import { Store, useStore } from "@t8/react-store";
 +
 + let AppContext = createContext(new Store(0));
 
   let Counter = () => {
--     let [counter, setCounter] = useState(0);
-+     let [counter, setCounter] = useStore(useContext(AppContext));
+-   let [counter, setCounter] = useState(0);
++   let [counter, setCounter] = useStore(useContext(AppContext));
 
-      let handleClick = () => {
-          setCounter(value => value + 1);
-      };
+    let handleClick = () => {
+      setCounter(value => value + 1);
+    };
 
-      return <button onClick={handleClick}>{counter}</button>;
+    return <button onClick={handleClick}>{counter}</button>;
   };
 
   let ResetButton = () => {
--     let [, setCounter] = useState(0);
-+     let [, setCounter] = useStore(useContext(AppContext), false);
+-   let [, setCounter] = useState(0);
++   let [, setCounter] = useStore(useContext(AppContext), false);
 
-      let handleClick = () => {
-          setCounter(0);
-      };
+    let handleClick = () => {
+      setCounter(0);
+    };
 
-      return <button onClick={handleClick}>×</button>;
+    return <button onClick={handleClick}>×</button>;
   };
 
-  let App = () => <><Counter/>{' '}<ResetButton/></>;
+  let App = () => <><Counter/>{" "}<ResetButton/></>;
 ```
 
 [Live demo](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)
@@ -56,27 +56,27 @@ Moving the local state to the full-fledged shared state:
 
 ```js
 let AppContext = createContext({
-    users: new Store(/* ... */),
-    items: new Store(/* ... */),
+  users: new Store(/* ... */),
+  items: new Store(/* ... */),
 });
 ```
 
 🔹 Apart from a boolean, `useStore(store, shouldUpdate)` can take a function of `(nextState, prevState) => boolean` as the second parameter to filter store updates to respond to:
 
 ```jsx
-let ItemCard = ({id}) => {
-    let hasRelevantUpdates = useCallback((nextItems, prevItems) => {
-        return nextItems[id].revision !== prevItems[id].revision;
-    }, [id]);
+let ItemCard = ({ id }) => {
+  let hasRelevantUpdates = useCallback((nextItems, prevItems) => {
+    return nextItems[id].revision !== prevItems[id].revision;
+  }, [id]);
 
-    let [items, setItems] = useStore(
-        useContext(AppContext).items,
-        hasRelevantUpdates,
-    );
+  let [items, setItems] = useStore(
+    useContext(AppContext).items,
+    hasRelevantUpdates,
+  );
 
-    return (
-        // content
-    );
+  return (
+    // content
+  );
 };
 ```
 
@@ -84,10 +84,10 @@ let ItemCard = ({id}) => {
 
 ```diff
   let App = () => (
--     <AppContext.Provider value={42}>
-+     <AppContext.Provider value={new Store(42)}>
-          <PlusButton/>{' '}<Display/>
-      </AppContext.Provider>
+-   <AppContext.Provider value={42}>
++   <AppContext.Provider value={new Store(42)}>
+      <PlusButton/>{" "}<Display/>
+    </AppContext.Provider>
   );
 ```
 
