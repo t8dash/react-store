@@ -1,6 +1,7 @@
 {
-  "include": ["index.ts", "src/**/*"],
+  "include": ["index.ts", "playwright.config.ts", "src", "tests"],
   "compilerOptions": {
+    "jsx": "react-jsx",
     "lib": ["ESNext", "DOM"],
     "target": "ESNext",
     "outDir": "dist",
