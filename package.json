@@ -23,7 +23,9 @@
   "homepage": "https://t8.js.org/react-store",
   "keywords": [
     "react",
+    "state management",
     "shared state",
+    "global state",
     "store"
   ],
   "author": "axtk",
