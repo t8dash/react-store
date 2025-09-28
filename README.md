@@ -65,7 +65,9 @@ let AppContext = createContext({
 
 ```jsx
 let ItemCard = ({ id }) => {
+  // Definition of changes in the item
   let hasRelevantUpdates = useCallback((nextItems, prevItems) => {
+    // Assuming that items have a `revision` property
     return nextItems[id].revision !== prevItems[id].revision;
   }, [id]);
 
@@ -75,7 +77,7 @@ let ItemCard = ({ id }) => {
   );
 
   return (
-    // content
+    // Content
   );
 };
 ```
