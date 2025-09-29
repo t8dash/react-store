@@ -1,0 +1,53 @@
+html {
+  color: black;
+  background: white;
+}
+body {
+  margin: 1em;
+}
+button {
+  cursor: pointer;
+}
+.board {
+  display: grid;
+  font: normal 2rem/1 sans-serif;
+  width: 12rem;
+  height: 12rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  border: 0.02rem solid;
+  padding: 0;
+}
+.board button {
+  font: inherit;
+  background: none transparent;
+  border: 0.02rem solid;
+}
+.board:not([disabled]) button:empty:hover {
+  background: lavender;
+}
+.board[disabled] button {
+  cursor: not-allowed;
+}
+.board button.selected {
+  color: seagreen;
+  background: lightgreen;
+}
+ul.history {
+  max-width: 20em;
+  list-style: none;
+  padding: 0;
+}
+ul.history li {
+  display: inline-block;
+  margin: 0 0.25em 0.25em 0;
+}
+ul.history button {
+  font: normal 1em/1.1 monospace;
+  background: #e8e8e8;
+  border: none;
+  padding: 0.5em 1em;
+}
+ul.history li.selected button {
+  outline: 0.1em solid royalblue;
+}

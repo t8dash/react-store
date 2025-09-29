@@ -14,6 +14,7 @@
     "preversion": "npx npm-run-all typecheck shape build test",
     "shape": "npx codeshape",
     "test": "npx playwright test --project=chromium",
+    "tic-tac-toe": "npx @t8/serve 3000 * tests/tic-tac-toe -b src/index.tsx",
     "typecheck": "tsc --noEmit"
   },
   "repository": {
