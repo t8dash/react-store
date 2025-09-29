@@ -46,7 +46,8 @@ Moving the local state to the full-fledged shared state:
   let App = () => <><Counter/>{" "}<ResetButton/></>;
 ```
 
-[Live demo](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)
+[Live counter demo](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)<br>
+[Tic-tac-toe](https://codesandbox.io/p/sandbox/tq852v?file=%252Fsrc%252FApp.tsx)
 
 🔹 The shared state setup with `@t8/react-store` is very similar to `useState()` allowing for quick migration from local state to shared state or the other way around.
 
