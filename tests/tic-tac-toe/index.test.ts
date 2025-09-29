@@ -2,8 +2,8 @@ import { expect, type Page, test } from "@playwright/test";
 import { type Server, serve } from "@t8/serve";
 
 const cellValueMap: Record<string, string> = {
-  "x": "❌",
-  "o": "⭕",
+  x: "❌",
+  o: "⭕",
 };
 
 class Playground {
@@ -18,14 +18,15 @@ class Playground {
     await this.getCell(index).click({ force: true });
   }
   async clickCells(indices: number[]) {
-    for (let index of indices)
-      await this.clickCell(index);
+    for (let index of indices) await this.clickCell(index);
   }
   async restart() {
-    await this.page.getByRole("button", { "name": "Restart" }).click();
+    await this.page.getByRole("button", { name: "Restart" }).click();
   }
   async rollbackTo(moveIndex: number) {
-    await this.page.locator(`.history li:nth-of-type(${moveIndex + 1}) button`).click();
+    await this.page
+      .locator(`.history li:nth-of-type(${moveIndex + 1}) button`)
+      .click();
   }
   async hasStatus(value: string) {
     await expect(this.page.locator(".status")).toHaveText(value);
@@ -34,10 +35,8 @@ class Playground {
     for (let i = 0; i < 9; i++) {
       let cell = this.getCell(i);
 
-      if (indices.includes(i))
-        await expect(cell).toContainClass("selected");
-      else
-        await expect(cell).not.toContainClass("selected");
+      if (indices.includes(i)) await expect(cell).toContainClass("selected");
+      else await expect(cell).not.toContainClass("selected");
     }
   }
   async hasCellValue(index: number, value: "x" | "o" | "") {

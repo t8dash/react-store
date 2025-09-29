@@ -51,7 +51,7 @@ function getStatus(state: State): Status {
 }
 
 let AppContext = createContext(
-  new Store<State>({ moves: [], lastMoveIndex: -1 })
+  new Store<State>({ moves: [], lastMoveIndex: -1 }),
 );
 
 let Cell = ({ index, selected }: { index: number; selected?: boolean }) => {
@@ -103,7 +103,10 @@ let History = () => {
   return (
     <ul className="history">
       {state.moves.map((_, i) => (
-        <li className={i === state.lastMoveIndex ? "selected" : undefined}>
+        <li
+          className={i === state.lastMoveIndex ? "selected" : undefined}
+          key={i}
+        >
           <button onClick={() => jumpTo(i)}>
             Go to move {i + 1} [{cellValues[i % 2]}]
           </button>

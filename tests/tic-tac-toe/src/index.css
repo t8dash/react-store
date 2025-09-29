@@ -10,7 +10,7 @@ button {
 }
 .board {
   display: grid;
-  font: normal 2rem/1 sans-serif;
+  font: normal 2rem / 1 sans-serif;
   width: 12rem;
   height: 12rem;
   grid-template-columns: repeat(3, 1fr);
@@ -43,7 +43,7 @@ ul.history li {
   margin: 0 0.25em 0.25em 0;
 }
 ul.history button {
-  font: normal 1em/1.1 monospace;
+  font: normal 1em / 1.1 monospace;
   background: #e8e8e8;
   border: none;
   padding: 0.5em 1em;
