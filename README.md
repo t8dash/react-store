@@ -108,4 +108,4 @@ Live demos:<br>
 
 ---
 
-- [Shared async action state tracking](https://github.com/t8js/react-pending)
+- [T8 React Pending](https://github.com/t8js/react-pending) for shared async action state tracking
