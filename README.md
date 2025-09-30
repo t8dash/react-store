@@ -11,7 +11,7 @@
 
 Installation: `npm i @t8/react-store`
 
-## Usage
+## Shared state setup
 
 Moving the local state to the full-fledged shared state:
 
@@ -51,9 +51,11 @@ Moving the local state to the full-fledged shared state:
 
 🔹 The shared state setup with `@t8/react-store` is very similar to `useState()` allowing for quick migration from local state to shared state or the other way around.
 
-🔹 The `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when the component doesn't make use of the store state value, but it may use the state setter.
+🔹 The `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
 
-🔹 An application can have as many stores as needed, whether on a single React Context or multiple Contexts.
+## Single store or multiple stores
+
+An application can have as many stores as needed, whether on a single React Context or multiple Contexts.
 
 ```js
 let AppContext = createContext({
@@ -62,7 +64,17 @@ let AppContext = createContext({
 });
 ```
 
-🔹 Apart from a boolean, `useStore(store, shouldUpdate)` can take a function of `(nextState, prevState) => boolean` as the second parameter to filter store updates to respond to:
+🔹 Splitting data into multiple stores helps maintain more targeted subscriptions to data changes in components.
+
+## Filtering store updates
+
+When only the store state setter is required, without the store state value, we can opt out from subscription to store state changes by passing `false` as the parameter of `useStore()`:
+
+```js
+let [, setState] = useState(store, false);
+```
+
+Apart from a boolean, `useStore(store, shouldUpdate)` can take a function of `(nextState, prevState) => boolean` as the second parameter to filter store updates to respond to:
 
 ```jsx
 let ItemCard = ({ id }) => {
@@ -83,7 +95,9 @@ let ItemCard = ({ id }) => {
 };
 ```
 
-🔹 Shared state can be provided to the app by means of a regular React Context provider:
+## Providing shared state
+
+Shared state can be provided to the app by means of a regular React Context provider:
 
 ```diff
   let App = () => (
@@ -94,18 +108,24 @@ let ItemCard = ({ id }) => {
   );
 ```
 
-🔹 A store can contain data of any type.
+## Store data
+
+A store can contain data of any type.
 
 Live demos:<br>
 [Primitive value state](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)<br>
 [Object value state](https://codesandbox.io/p/sandbox/y7wt2j?file=%2Fsrc%2FPlusButton.jsx)
 
-🔹 Immer can be used with `useStore()` just the same way as [with `useState()`](https://immerjs.github.io/immer/example-setstate#usestate--immer) to facilitate deeply nested data changes.
+## With Immer
+
+Immer can be used with `useStore()` just the same way as [with `useState()`](https://immerjs.github.io/immer/example-setstate#usestate--immer) to facilitate deeply nested data changes.
 
 [Live demo with Immer](https://codesandbox.io/p/sandbox/rn4qsr?file=%2Fsrc%2FPlusButton.jsx)
 
-🔹 A store initialized outside a component can be used as the component's remount-persistent state.
+## Shared loading state
 
----
+The ready-to-use hook from the [T8 React Pending](https://github.com/t8js/react-pending) package helps manage shared async action state without disturbing the app's state management and actions' code.
 
-- [T8 React Pending](https://github.com/t8js/react-pending) for shared async action state tracking
+## Standalone store
+
+A store initialized outside a component can be used as the component's remount-persistent state.
