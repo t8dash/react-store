@@ -29,23 +29,24 @@ const cellValues = ["❌", "⭕"];
 // const cellValues = ["🦄", "✨"];
 
 function getStatus(state: State): Status {
+  // Too few moves from both players for a game to end
+  if (state.lastMoveIndex < 4) return { value: "playing" };
+
   let moves = state.moves.slice(0, state.lastMoveIndex + 1);
 
-  if (moves.length > 4) {
-    for (let win of wins) {
-      let index = moves.indexOf(win[0]);
+  for (let win of wins) {
+    let index = moves.indexOf(win[0]);
 
-      if (
-        index !== -1 &&
-        moves.indexOf(win[1]) % 2 === index % 2 &&
-        moves.indexOf(win[2]) % 2 === index % 2
-      )
-        return { value: "win", win };
-    }
-
-    // No win, no more moves
-    if (moves.length === 9) return { value: "draw" };
+    if (
+      index !== -1 &&
+      moves.indexOf(win[1]) % 2 === index % 2 &&
+      moves.indexOf(win[2]) % 2 === index % 2
+    )
+      return { value: "win", win };
   }
+
+  // No win, no more moves
+  if (moves.length === 9) return { value: "draw" };
 
   return { value: "playing" };
 }
