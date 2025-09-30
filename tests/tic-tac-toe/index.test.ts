@@ -44,162 +44,164 @@ class Playground {
   }
 }
 
-let server: Server;
+test.describe("tic-tac-toe", () => {
+  let server: Server;
 
-test.beforeAll(async () => {
-  server = await serve({
-    path: "tests/tic-tac-toe",
-    bundle: "src/index.tsx",
-    spa: true,
+  test.beforeAll(async () => {
+    server = await serve({
+      path: "tests/tic-tac-toe",
+      bundle: "src/index.tsx",
+      spa: true,
+    });
   });
-});
 
-test.afterAll(() => {
-  server.close();
-});
+  test.afterAll(() => {
+    server.close();
+  });
 
-test("play and win", async ({ page }) => {
-  let p = new Playground(page);
+  test("play and win", async ({ page }) => {
+    let p = new Playground(page);
 
-  await page.goto("/");
-  await p.hasStatus("playing");
+    await page.goto("/");
+    await p.hasStatus("playing");
 
-  await p.clickCell(4);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "");
-  await p.hasStatus("playing");
+    await p.clickCell(4);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "");
+    await p.hasStatus("playing");
 
-  await p.clickCell(3);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasStatus("playing");
+    await p.clickCell(3);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasStatus("playing");
 
-  await p.clickCell(2);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasStatus("playing");
+    await p.clickCell(2);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasStatus("playing");
 
-  await p.clickCell(5);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasCellValue(5, "o");
-  await p.hasStatus("playing");
+    await p.clickCell(5);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasCellValue(5, "o");
+    await p.hasStatus("playing");
 
-  await p.clickCell(6);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasCellValue(5, "o");
-  await p.hasCellValue(6, "x");
-  await p.hasStatus("win");
-  await p.hasSelection([2, 4, 6]);
-});
+    await p.clickCell(6);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasCellValue(5, "o");
+    await p.hasCellValue(6, "x");
+    await p.hasStatus("win");
+    await p.hasSelection([2, 4, 6]);
+  });
 
-test("no moves after game ends", async ({ page }) => {
-  let p = new Playground(page);
+  test("no moves after game ends", async ({ page }) => {
+    let p = new Playground(page);
 
-  await page.goto("/");
-  await p.clickCells([4, 3, 2, 5, 6]);
-  await p.hasStatus("win");
-  await p.hasSelection([2, 4, 6]);
+    await page.goto("/");
+    await p.clickCells([4, 3, 2, 5, 6]);
+    await p.hasStatus("win");
+    await p.hasSelection([2, 4, 6]);
 
-  await p.clickCell(0);
-  await p.hasCellValue(0, "");
-  await p.hasStatus("win");
-  await p.hasSelection([2, 4, 6]);
-});
+    await p.clickCell(0);
+    await p.hasCellValue(0, "");
+    await p.hasStatus("win");
+    await p.hasSelection([2, 4, 6]);
+  });
 
-test("rollback", async ({ page }) => {
-  let p = new Playground(page);
+  test("rollback", async ({ page }) => {
+    let p = new Playground(page);
 
-  await page.goto("/");
-  await p.clickCells([4, 3, 2, 5, 6]);
-  await p.hasStatus("win");
-  await p.hasSelection([2, 4, 6]);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasCellValue(5, "o");
-  await p.hasCellValue(6, "x");
+    await page.goto("/");
+    await p.clickCells([4, 3, 2, 5, 6]);
+    await p.hasStatus("win");
+    await p.hasSelection([2, 4, 6]);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasCellValue(5, "o");
+    await p.hasCellValue(6, "x");
 
-  await p.rollbackTo(2);
-  await p.hasStatus("playing");
-  await p.hasSelection([]);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasCellValue(5, "");
-  await p.hasCellValue(6, "");
+    await p.rollbackTo(2);
+    await p.hasStatus("playing");
+    await p.hasSelection([]);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasCellValue(5, "");
+    await p.hasCellValue(6, "");
 
-  await p.rollbackTo(3);
-  await p.hasStatus("playing");
-  await p.hasSelection([]);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasCellValue(5, "o");
-  await p.hasCellValue(6, "");
+    await p.rollbackTo(3);
+    await p.hasStatus("playing");
+    await p.hasSelection([]);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasCellValue(5, "o");
+    await p.hasCellValue(6, "");
 
-  await p.rollbackTo(4);
-  await p.hasStatus("win");
-  await p.hasSelection([2, 4, 6]);
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(3, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasCellValue(5, "o");
-  await p.hasCellValue(6, "x");
-});
+    await p.rollbackTo(4);
+    await p.hasStatus("win");
+    await p.hasSelection([2, 4, 6]);
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(3, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasCellValue(5, "o");
+    await p.hasCellValue(6, "x");
+  });
 
-test("draw", async ({ page }) => {
-  let p = new Playground(page);
+  test("draw", async ({ page }) => {
+    let p = new Playground(page);
 
-  await page.goto("/");
-  await p.clickCells([4, 8, 6, 2, 5, 3, 1, 7]);
-  await p.hasStatus("playing");
-  await p.hasSelection([]);
+    await page.goto("/");
+    await p.clickCells([4, 8, 6, 2, 5, 3, 1, 7]);
+    await p.hasStatus("playing");
+    await p.hasSelection([]);
 
-  await p.clickCell(0);
-  await p.hasStatus("draw");
-  await p.hasSelection([]);
+    await p.clickCell(0);
+    await p.hasStatus("draw");
+    await p.hasSelection([]);
 
-  await p.clickCell(1);
-  await p.hasStatus("draw");
-  await p.hasSelection([]);
-});
+    await p.clickCell(1);
+    await p.hasStatus("draw");
+    await p.hasSelection([]);
+  });
 
-test("restart", async ({ page }) => {
-  let p = new Playground(page);
+  test("restart", async ({ page }) => {
+    let p = new Playground(page);
 
-  await page.goto("/");
-  await p.clickCells([4, 5, 0]);
-  await p.hasStatus("playing");
-  await p.hasCellValue(4, "x");
-  await p.hasCellValue(5, "o");
-  await p.hasCellValue(0, "x");
-  await p.hasCellValue(1, "");
-  await p.hasSelection([]);
+    await page.goto("/");
+    await p.clickCells([4, 5, 0]);
+    await p.hasStatus("playing");
+    await p.hasCellValue(4, "x");
+    await p.hasCellValue(5, "o");
+    await p.hasCellValue(0, "x");
+    await p.hasCellValue(1, "");
+    await p.hasSelection([]);
 
-  await p.restart();
-  await p.hasStatus("playing");
-  await p.hasCellValue(4, "");
-  await p.hasCellValue(5, "");
-  await p.hasCellValue(0, "");
-  await p.hasCellValue(1, "");
-  await p.hasSelection([]);
+    await p.restart();
+    await p.hasStatus("playing");
+    await p.hasCellValue(4, "");
+    await p.hasCellValue(5, "");
+    await p.hasCellValue(0, "");
+    await p.hasCellValue(1, "");
+    await p.hasSelection([]);
 
-  await p.clickCells([4, 5, 0, 8, 2, 1, 6]);
-  await p.hasStatus("win");
-  await p.hasCellValue(0, "x");
-  await p.hasCellValue(1, "o");
-  await p.hasCellValue(2, "x");
-  await p.hasSelection([2, 4, 6]);
+    await p.clickCells([4, 5, 0, 8, 2, 1, 6]);
+    await p.hasStatus("win");
+    await p.hasCellValue(0, "x");
+    await p.hasCellValue(1, "o");
+    await p.hasCellValue(2, "x");
+    await p.hasSelection([2, 4, 6]);
 
-  await p.restart();
-  await p.hasStatus("playing");
-  await p.hasCellValue(0, "");
-  await p.hasCellValue(1, "");
-  await p.hasCellValue(2, "");
-  await p.hasSelection([]);
+    await p.restart();
+    await p.hasStatus("playing");
+    await p.hasCellValue(0, "");
+    await p.hasCellValue(1, "");
+    await p.hasCellValue(2, "");
+    await p.hasSelection([]);
+  });
 });
