@@ -36,13 +36,12 @@ function getStatus(state: State): Status {
 
   for (let win of wins) {
     let index = moves.indexOf(win[0]);
+    let matchesWin = index !== -1;
 
-    if (
-      index !== -1 &&
-      moves.indexOf(win[1]) % 2 === index % 2 &&
-      moves.indexOf(win[2]) % 2 === index % 2
-    )
-      return { value: "win", win };
+    for (let i = 1; i < win.length && matchesWin; i++)
+      matchesWin &&= moves.indexOf(win[i]) % 2 === index % 2;
+
+    if (matchesWin) return { value: "win", win };
   }
 
   // No win, no more moves
@@ -94,7 +93,7 @@ let Board = () => {
 let History = () => {
   let [state, setState] = useStore(useContext(AppContext));
 
-  let jumpTo = (moveIndex: number) => {
+  let rollbackTo = (moveIndex: number) => {
     setState((state) => ({
       ...state,
       lastMoveIndex: moveIndex,
@@ -108,7 +107,7 @@ let History = () => {
           className={i === state.lastMoveIndex ? "selected" : undefined}
           key={i}
         >
-          <button onClick={() => jumpTo(i)}>
+          <button onClick={() => rollbackTo(i)}>
             Go to move {i + 1} [{cellValues[i % 2]}]
           </button>
         </li>
