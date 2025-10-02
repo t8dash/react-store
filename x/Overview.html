@@ -1,15 +1,20 @@
----
-layout: section
-id: "Overview"
-title: "Overview"
-prev:
-  id: ""
-  title: ""
-next:
-  id: ""
-  title: ""
----
+<!DOCTYPE html>
+<html lang="en" data-theme="t8">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview | @t8/react-store</title>
+<link rel="stylesheet" href="https://unpkg.com/ghstage@2.5/dist/css/base.css">
+<link rel="stylesheet" href="https://unpkg.com/ghstage@2.5/dist/css/section.css">
+<link rel="icon" type="image/png" href="/assets/logo.png">
 
+
+</head>
+<body>
+<div class="layout">
+<div class="body">
+<main>
+<h1><a href="/" class="scope">@t8</a><span class="sep">/</span><a href="/react-store/" class="name">react-store</a></a></h1>
 <h2>Shared state setup</h2>
 <p>Moving the local state to the full-fledged shared state:</p>
 <pre><code class="language-diff">  import { createContext, useContext } from "react";
@@ -96,3 +101,55 @@ next:
 <p>The ready-to-use hook from the <a href="https://github.com/t8js/react-pending" target="_blank">T8 React Pending</a> package helps manage shared async action state without disturbing the app's state management and actions' code.</p>
 <h2>Standalone store</h2>
 <p>A store initialized outside a component can be used as the component's remount-persistent state.</p>
+
+<p class="pagenav">
+  <span class="prev">
+    <span class="icon">←</span>
+    <a href="/react-store/">Intro</a>
+  </span>
+  <span class="sep">|</span>
+  <span class="repo next"><a href="https://github.com/t8js/react-store" target="_blank">GitHub</a> <span class="icon">✦</span></span>
+</p>
+</main>
+<hr>
+<nav>
+
+<section class="ref">
+  <ul>
+    <li><a href="https://github.com/t8js/react-store" target="_blank">GitHub</a></li>
+    
+  </ul>
+</section>
+<section class="related">
+  <h2>Also with React</h2>
+  <ul>
+    <li><a href="/react-router" data-name="@t8/react-router">T8 <strong>React Router</strong></a></li>
+    
+    <li><a href="/react-pending" data-name="@t8/react-pending">T8 <strong>React Pending</strong></a></li>
+  </ul>
+  <h2>Vanilla TS/JS</h2>
+  <ul>
+    <li><a href="https://github.com/t8js/router#readme" data-name="@t8/router">T8 <strong>Router</strong></a></li>
+    <li><a href="https://github.com/t8js/store#readme" data-name="@t8/store">T8 <strong>Store</strong></a></li>
+  </ul>
+</section>
+
+</nav>
+</div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/base16/material.min.css">
+<link rel="stylesheet" href="https://unpkg.com/ghstage@2.5/dist/css/code.css">
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
+<script>hljs.highlightAll()</script>
+<script>
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window, document, "script", "https://mc.yandex.com/metrika/tag.js", "ym");
+ym(103784239, "init", {clickmap: true, trackLinks: true, accurateTrackBounce: true});
+</script>
+<noscript><div><img src="https://mc.yandex.com/watch/103784239" style="position:absolute;left:-9999px;" alt=""></div></noscript>
+</body>
+</html>
