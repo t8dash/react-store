@@ -1,7 +1,7 @@
 {
   "name": "@t8/react-store",
   "version": "1.0.21",
-  "description": "Straightforward and minimalist shared state management for React apps",
+  "description": "Concise shared state management for React apps",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {

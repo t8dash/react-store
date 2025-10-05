@@ -2,7 +2,7 @@
 
 # @t8/react-store
 
-*Straightforward and minimalist shared state management for React apps*
+*Concise shared state management for React apps*
 
 - Similar to `useState()`
 - No boilerplate
