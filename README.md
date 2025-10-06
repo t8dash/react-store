@@ -49,7 +49,7 @@ Moving the local state to the full-fledged shared state:
 [Live counter demo](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)<br>
 [Tic-tac-toe](https://codesandbox.io/p/sandbox/tq852v?file=%252Fsrc%252FApp.tsx)
 
-🔹 The shared state setup with `@t8/react-store` is very similar to `useState()` allowing for quick migration from local state to shared state or the other way around.
+🔹 The shared state setup shown above is very similar to `useState()` allowing for quick migration from local state to shared state or the other way around.
 
 🔹 The `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
 
