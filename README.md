@@ -53,6 +53,8 @@ Moving the local state to the full-fledged shared state:
 
 🔹 The `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
 
+🔹 Note that updating the store state doesn't change the store reference sitting in the React Context and therefore doesn't cause updates of the entire React Context. Only the components subscribed to store state updates by means of `useStore()` will be notified to re-render.
+
 ## Single store or multiple stores
 
 An application can have as many stores as needed, whether on a single React Context or multiple Contexts.
