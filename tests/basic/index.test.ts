@@ -35,7 +35,7 @@ test.afterAll(() => {
   server.close();
 });
 
-test.only("counter without context", async ({ page }) => {
+test("counter without context", async ({ page }) => {
   let p = new Playground(page);
 
   await page.goto("/");

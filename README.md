@@ -16,25 +16,24 @@ Installation: `npm i @t8/react-store`
 Moving the local state to the full-fledged shared state:
 
 ```diff
-  import { createContext, useContext } from "react";
 + import { Store, useStore } from "@t8/react-store";
 +
-+ let AppContext = createContext(new Store(0));
++ let counterStore = new Store(0);
 
   let Counter = () => {
 -   let [counter, setCounter] = useState(0);
-+   let [counter, setCounter] = useStore(useContext(AppContext));
++   let [counter, setCounter] = useStore(counterStore);
 
     let handleClick = () => {
       setCounter(value => value + 1);
     };
 
-    return <button onClick={handleClick}>{counter}</button>;
+    return <button onClick={handleClick}>+ {counter}</button>;
   };
 
   let ResetButton = () => {
 -   let [, setCounter] = useState(0);
-+   let [, setCounter] = useStore(useContext(AppContext), false);
++   let [, setCounter] = useStore(counterStore, false);
 
     let handleClick = () => {
       setCounter(0);
@@ -46,27 +45,18 @@ Moving the local state to the full-fledged shared state:
   let App = () => <><Counter/>{" "}<ResetButton/></>;
 ```
 
-[Live counter demo](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)<br>
+[Live counter demo](https://codesandbox.io/p/sandbox/szhdnw?file=%252Fsrc%252FApp.tsx)<br>
 [Tic-tac-toe](https://codesandbox.io/p/sandbox/tq852v?file=%252Fsrc%252FApp.tsx)
 
 🔹 The shared state setup shown above is very similar to `useState()` allowing for quick migration from local state to shared state or the other way around.
 
 🔹 The `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
 
-🔹 Note that updating the store state doesn't change the store reference sitting in the React Context and therefore doesn't cause updates of the entire React Context. Only the components subscribed to store state updates by means of `useStore()` will be notified to re-render.
-
 ## Single store or multiple stores
 
-An application can have as many stores as needed, whether on a single React Context or multiple Contexts.
+An application can have as many stores as needed.
 
-```js
-let AppContext = createContext({
-  users: new Store(/* ... */),
-  items: new Store(/* ... */),
-});
-```
-
-🔹 Splitting data into multiple stores helps maintain more targeted subscriptions to data changes in components.
+🔹 Splitting data into multiple stores is one of the strategies to maintain more targeted subscriptions to data changes in components. The other strategy is filtering store updates at the component level, which is discussed below.
 
 ## Filtering store updates
 
@@ -76,7 +66,7 @@ When only the store state setter is required, without the store state value, we 
 let [, setState] = useState(store, false);
 ```
 
-Apart from a boolean, `useStore(store, shouldUpdate)` can take a function of `(nextState, prevState) => boolean` as the second parameter to filter store updates to respond to:
+Apart from a boolean, `useStore(store, shouldUpdate)` accepts a function of `(nextState, prevState) => boolean` as the second parameter to filter store updates to respond to:
 
 ```jsx
 let ItemCard = ({ id }) => {
@@ -86,10 +76,7 @@ let ItemCard = ({ id }) => {
     return nextItems[id].revision !== prevItems[id].revision;
   }, [id]);
 
-  let [items, setItems] = useStore(
-    useContext(AppContext).items,
-    hasRelevantUpdates,
-  );
+  let [items, setItems] = useStore(itemStore, hasRelevantUpdates);
 
   return (
     // Content
@@ -101,14 +88,49 @@ let ItemCard = ({ id }) => {
 
 Shared state can be provided to the app by means of a regular React Context provider:
 
-```diff
-  let App = () => (
--   <AppContext.Provider value={42}>
-+   <AppContext.Provider value={new Store(42)}>
-      <PlusButton/>{" "}<Display/>
-    </AppContext.Provider>
-  );
+```ts
+import { createContext } from "react";
+
+export let AppContext = createContext(new Store(0));
 ```
+
+```tsx
+let App = () => (
+  <AppContext.Provider value={new Store(42)}>
+    <PlusButton/>{" "}<Display/>
+  </AppContext.Provider>
+);
+```
+
+```tsx
+let Counter = () => {
+  let [counter, setCounter] = useStore(useContext(AppContext));
+
+  // Rendering
+};
+```
+
+[Live counter demo with Context](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)
+
+🔹 In a multi-store setup, stores can be located in a single Context or split across multiple Contexts, just like any application data.
+
+```js
+// Multiple stores in a single Context
+let AppContext = createContext({
+  users: new Store(/* ... */),
+  items: new Store(/* ... */),
+});
+```
+
+```jsx
+let ItemCard = ({ id }) => {
+  let [items, setItems] = useStore(useContext(AppContext).items);
+
+  // Rendering
+};
+```
+
+🔹 Note that updating the store state doesn't change the store reference sitting in the React Context and therefore doesn't cause updates of the entire Context. Only the components subscribed to updates in the particular store by means of `useStore(store)` will be notified to re-render.
 
 ## Store data
 
@@ -128,6 +150,6 @@ Immer can be used with `useStore()` just the same way as [with `useState()`](htt
 
 The ready-to-use hook from the [T8 React Pending](https://github.com/t8js/react-pending) package helps manage shared async action state without disturbing the app's state management and actions' code.
 
-## Standalone store
+## Remount-persistent state
 
-A store initialized outside a component can be used as the component's remount-persistent state.
+A standalone store initialized outside a component can be used by the component as remount-persistent state, whether used by other components or not.
