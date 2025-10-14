@@ -52,6 +52,8 @@ Moving the local state to the full-fledged shared state:
 
 🔹 The `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
 
+🔹 Similarly to instances of the built-in data container classes, such as `Set` and `Map`, stores are created as `new Store(data)` rather than with a factory function.
+
 ## Single store or multiple stores
 
 An application can have as many stores as needed.
