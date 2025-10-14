@@ -44,6 +44,6 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@t8/store": "^1.1.4"
+    "@t8/store": "^1.1.5"
   }
 }
