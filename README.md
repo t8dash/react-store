@@ -6,7 +6,7 @@
 
 - Similar to `useState()`
 - No boilerplate
-- Painless transition from local state to shared state and vice versa
+- Painless transition from local state
 - SSR-compatible
 
 Installation: `npm i @t8/react-store`
