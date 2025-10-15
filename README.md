@@ -71,6 +71,8 @@ let [, setState] = useState(store, false);
 Apart from a boolean, `useStore(store, shouldUpdate)` accepts a function of `(nextState, prevState) => boolean` as the second parameter to filter store updates to respond to:
 
 ```jsx
+import { useStore } from "@t8/react-store";
+
 let ItemCard = ({ id }) => {
   // Definition of changes in the item
   let hasRelevantUpdates = useCallback((nextItems, prevItems) => {
@@ -90,41 +92,43 @@ let ItemCard = ({ id }) => {
 
 Shared state can be provided to the app by means of a regular React Context provider:
 
-```ts
-import { createContext } from "react";
+```diff
++ import { createContext, useContext } from "react";
+  import { Store, useStore } from "@t8/react-store";
 
-export let AppContext = createContext(new Store(0));
-```
+- let counterStore = new Store(0);
++ let AppContext = createContext(new Store(0));
 
-```tsx
-let App = () => (
-  <AppContext.Provider value={new Store(42)}>
-    <PlusButton/>{" "}<Display/>
-  </AppContext.Provider>
-);
-```
+  let Counter = () => {
+-   let [counter, setCounter] = useStore(counterStore);
++   let [counter, setCounter] = useStore(useContext(AppContext));
 
-```tsx
-let Counter = () => {
-  let [counter, setCounter] = useStore(useContext(AppContext));
+    // Rendering
+  };
 
-  // Rendering
-};
+  let App = () => (
+-   <>
++   <AppContext.Provider value={new Store(42)}>
+      <PlusButton/>{" "}<Display/>
++   </AppContext.Provider>
+-   </>
+  );
 ```
 
 [Live counter demo with Context](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)
 
 🔹 In a multi-store setup, stores can be located in a single Context or split across multiple Contexts, just like any application data.
 
-```js
+```jsx
+import { createContext, useContext } from "react";
+import { Store, useStore } from "@t8/react-store";
+
 // Multiple stores in a single Context
 let AppContext = createContext({
   users: new Store(/* ... */),
   items: new Store(/* ... */),
 });
-```
 
-```jsx
 let ItemCard = ({ id }) => {
   let [items, setItems] = useStore(useContext(AppContext).items);
 
