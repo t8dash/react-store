@@ -29,7 +29,7 @@
     "store"
   ],
   "author": "axtk",
-  "license": "ISC",
+  "license": "MIT",
   "peerDependencies": {
     "react": ">=16.8"
   },
