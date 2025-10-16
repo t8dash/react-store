@@ -4,10 +4,26 @@
 
 *Concise shared state management for React apps*
 
-- Similar to `useState()`
-- No boilerplate
-- Painless transition from local state
-- SSR-compatible
+🔹 Similar to `useState()`
+
+```diff
++ let store = new Store(0);
+
+  let Counter = () => {
+-   let [counter, setCounter] = useState(0);
++   let [counter, setCounter] = useStore(store);
+
+    let handleClick = () => {
+      setCounter(value => value + 1);
+    };
+
+    return <button onClick={handleClick}>+ {counter}</button>;
+  };
+```
+
+🔹 No boilerplate<br>
+🔹 Painless transition from local state<br>
+🔹 SSR- and CSR-compatible
 
 Installation: `npm i @t8/react-store`
 
