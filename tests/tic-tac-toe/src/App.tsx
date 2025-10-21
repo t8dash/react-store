@@ -1,4 +1,3 @@
-import { createContext, useContext } from "react";
 import { Store, useStore } from "../../..";
 
 // UI state
@@ -50,12 +49,10 @@ function getStatus(state: State): Status {
   return { value: "playing" };
 }
 
-let AppContext = createContext(
-  new Store<State>({ moves: [], lastMoveIndex: -1 }),
-);
+let gameStore = new Store<State>({ moves: [], lastMoveIndex: -1 });
 
 let Cell = ({ index, selected }: { index: number; selected?: boolean }) => {
-  let [state, setState] = useStore(useContext(AppContext));
+  let [state, setState] = useStore(gameStore);
 
   // Checking whether the cell index is already among the past moves
   let moveIndex = state.moves.lastIndexOf(index, state.lastMoveIndex);
@@ -78,7 +75,7 @@ let Cell = ({ index, selected }: { index: number; selected?: boolean }) => {
 let indices = Array.from({ length: 9 }).fill(0);
 
 let Board = () => {
-  let [state] = useStore(useContext(AppContext));
+  let [state] = useStore(gameStore);
   let { value: status, win } = getStatus(state);
 
   return (
@@ -91,7 +88,7 @@ let Board = () => {
 };
 
 let History = () => {
-  let [state, setState] = useStore(useContext(AppContext));
+  let [state, setState] = useStore(gameStore);
 
   let rollbackTo = (moveIndex: number) => {
     setState((state) => ({
@@ -117,7 +114,7 @@ let History = () => {
 };
 
 let Controls = () => {
-  let [, setState] = useStore(useContext(AppContext), false);
+  let [, setState] = useStore(gameStore, false);
 
   let restart = () => {
     setState({ moves: [], lastMoveIndex: -1 });
@@ -131,7 +128,7 @@ let Controls = () => {
 };
 
 let StatusBar = () => {
-  let [state] = useStore(useContext(AppContext));
+  let [state] = useStore(gameStore);
 
   return <p className="status">{getStatus(state).value}</p>;
 };
