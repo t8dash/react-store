@@ -156,7 +156,7 @@ let ItemCard = ({ id }) => {
 
 ## Store data
 
-A store can contain data of any type.
+A store can contain data of any type. With TypeScript, the type of a store containing data of type `T` is `Store<T>` which can be inferred from the data passed to `new Store(data)`.
 
 Live demos:<br>
 [Primitive value state](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)<br>
