@@ -29,7 +29,6 @@ export function useStore<T>(
   if (!isStore(store)) throw new Error("'store' is not an instance of Store");
 
   let [, setRevision] = useState(-1);
-  let initedRef = useRef(false);
 
   let state = store.getState();
   let setState = useMemo(() => store.setState.bind(store), [store]);
@@ -46,18 +45,11 @@ export function useStore<T>(
         setRevision(Math.random());
     });
 
-    // Trigger a rerender if the store state changed after the component
-    // last read it and before the component subscribed to its changes.
-    if (!initedRef.current) {
-      initedRef.current = true;
-
-      if (store.revision !== initialStoreRevision.current)
-        setRevision(Math.random());
-    }
+    if (store.revision !== initialStoreRevision.current)
+      setRevision(Math.random());
 
     return () => {
       unsubscribe();
-      initedRef.current = false;
       initialStoreRevision.current = store.revision;
     };
   }, [store, shouldUpdate]);
