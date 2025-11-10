@@ -13,16 +13,18 @@ export function useStore<T>(
    *
    * @defaultValue `true`
    *
-   * Can be set to `false` when the component only requires the
-   * store state setter but not the state value itself, and so the
-   * component doesn't need to respond to updates in the store state.
+   * `shouldUpdate` can be set to `false` to prevent subscription
+   * to the store updates. Use case: when the component only requires
+   * the store state setter but not the store state value, the
+   * component may not need to respond to the store updates:
    *
    * ```ts
    * let [, setValue] = useStore(store, false);
    * ```
    *
-   * Can be set to a function `(nextState, prevState) => boolean` to
-   * make the component respond only to specific store state changes.
+   * `shouldUpdate` can be set to a function `(nextState, prevState) => boolean`
+   * to make the component respond only to specific store state changes,
+   * when this function returns `true`.
    */
   shouldUpdate: ShouldUpdate<T> = true,
 ): [T, SetStoreState<T>] {
