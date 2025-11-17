@@ -3,9 +3,10 @@
   "version": "1.0.33",
   "description": "Concise shared state management for React apps",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "npx npm-run-all clean compile",
+    "build": "npx npm-run-all clean compile types",
     "clean": "node -e \"require('node:fs').rmSync('dist', { force: true, recursive: true });\"",
     "compile": "npx esbuild index.ts --bundle --outdir=dist --platform=neutral --external:react",
     "demo": "npx @t8/serve 3000 * tests/counter -b src/index.tsx",
@@ -14,7 +15,8 @@
     "shape": "npx codeshape",
     "test": "npx playwright test --project=chromium",
     "tic-tac-toe": "npx @t8/serve 3000 * tests/tic-tac-toe -b src/index.tsx",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "types": "tsc -p tsconfig.build.json"
   },
   "repository": {
     "type": "git",
@@ -44,6 +46,6 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@t8/store": "^1.1.7"
+    "@t8/store": "^1.1.8"
   }
 }
