@@ -1,5 +1,5 @@
-import { Display } from "./Display";
-import { PlusButton } from "./PlusButton";
+import { Display } from "./Display.tsx";
+import { PlusButton } from "./PlusButton.tsx";
 
 export const App = () => (
   <>

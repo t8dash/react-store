@@ -1,4 +1,4 @@
-import { Store, useStore } from "../../..";
+import { Store, useStore } from "../../../index.ts";
 
 // UI state
 type State = {

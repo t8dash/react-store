@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { useStore } from "../../..";
-import { AppContext } from "./AppContext";
+import { useStore } from "../../../index.ts";
+import { AppContext } from "./AppContext.ts";
 
 export const Display = () => {
   const [state] = useStore(useContext(AppContext));

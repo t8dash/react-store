@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { Store, useStore } from "../..";
+import { Store, useStore } from "../../index.ts";
 
 let counterStore = new Store(0);
 

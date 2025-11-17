@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
-import { Store } from "../../..";
-import { App } from "./App";
-import { AppContext } from "./AppContext";
+import { Store } from "../../../index.ts";
+import { App } from "./App.tsx";
+import { AppContext } from "./AppContext.ts";
 
 createRoot(document.querySelector("#app")!).render(
   <AppContext.Provider value={new Store({ counter: 42 })}>
