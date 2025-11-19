@@ -4,8 +4,6 @@
 
 [![npm](https://img.shields.io/npm/v/@t8/react-store?labelColor=345&color=46e)](https://www.npmjs.com/package/@t8/react-store) ![Lightweight](https://img.shields.io/bundlejs/size/@t8/react-store?label=minzip&labelColor=345&color=46e) ![CSR ✓](https://img.shields.io/badge/CSR-✓-345?labelColor=345) ![SSR ✓](https://img.shields.io/badge/SSR-✓-345?labelColor=345)
 
-🔹 Similar to `useState()`
-
 ```diff
 + let store = new Store(0);
 
@@ -21,10 +19,11 @@
   };
 ```
 
-🔹 No boilerplate<br>
-🔹 Quick transition from local state<br>
-🔹 Easily integrates with Immer<br>
-🔹 SSR- and CSR-compatible
+- Similar to `useState()`
+- No boilerplate
+- Quick transition from local state
+- Easily integrates with Immer
+- SSR- and CSR-compatible
 
 Installation: `npm i @t8/react-store`
 
