@@ -1,7 +1,7 @@
 {
   "name": "@t8/react-store",
   "version": "1.0.35",
-  "description": "useState()-like React app state management",
+  "description": "Bare essentials for shared state management in React apps",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
