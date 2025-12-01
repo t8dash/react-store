@@ -66,7 +66,7 @@ Moving the local state to the full-fledged shared state:
 
 🔹 The shared state setup shown above is very similar to `useState()` allowing for quick migration from local state to shared state or the other way around.
 
-🔹 The `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
+🔹 The optional `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
 
 🔹 Similarly to instances of the built-in data container classes, such as `Set` and `Map`, stores are created as `new Store(data)` rather than with a factory function.
 
@@ -84,7 +84,7 @@ When only the store state setter is required, without the store state value, we 
 let [, setState] = useState(store, false);
 ```
 
-Apart from a boolean, `useStore(store, shouldUpdate)` accepts a function of `(nextState, prevState) => boolean` as the second parameter to filter store updates to respond to:
+Apart from a boolean, `useStore(store, shouldUpdate)` accepts a function of `(nextState, prevState) => boolean` as the optional second parameter to filter store updates to respond to:
 
 ```jsx
 import { useStore } from "@t8/react-store";
@@ -103,6 +103,8 @@ let ItemCard = ({ id }) => {
   );
 };
 ```
+
+While `useStore(itemStore)` in this component would trigger a re-render in response to any changes in the `itemStore` (which can be fine with a small store), with `useStore(itemStore, hasRelevantUpdates)` the `ItemCard` component has a more targeted subscription to the store: a re-render will only be triggered if the `revision` property of the item with the given `id` has changed.
 
 ## Providing shared state
 
@@ -156,7 +158,7 @@ let ItemCard = ({ id }) => {
 
 ## Store data
 
-A store can contain data of any type. With TypeScript, the type of a store containing data of type `T` is `Store<T>` which can be inferred from the data passed to `new Store(data)`.
+A store can contain data of any type. With TypeScript, the type of a store containing data of type `T` is `Store<T>` which can be inferred from `data` passed to `new Store(data)`.
 
 Live demos:<br>
 [Primitive value state](https://codesandbox.io/p/sandbox/rtng37?file=%2Fsrc%2FPlusButton.jsx)<br>
