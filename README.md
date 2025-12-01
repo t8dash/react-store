@@ -20,8 +20,8 @@
 ```
 
 - Similar to `useState()`
-- No boilerplate
 - Quick transition from local state
+- No boilerplate
 - Easily integrates with Immer
 - SSR- and CSR-compatible
 
