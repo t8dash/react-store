@@ -90,13 +90,10 @@ Apart from a boolean, `useStore(store, shouldUpdate)` accepts a function of `(ne
 import { useStore } from "@t8/react-store";
 
 let ItemCard = ({ id }) => {
-  // Definition of changes in the item
-  let hasRelevantUpdates = useCallback((nextItems, prevItems) => {
+  let [items, setItems] = useStore(itemStore, (nextItems, prevItems) => {
     // Assuming that items have a `revision` property
     return nextItems[id].revision !== prevItems[id].revision;
-  }, [id]);
-
-  let [items, setItems] = useStore(itemStore, hasRelevantUpdates);
+  });
 
   return (
     // Content
@@ -104,7 +101,7 @@ let ItemCard = ({ id }) => {
 };
 ```
 
-While `useStore(itemStore)` in this component would trigger a re-render in response to any changes in the `itemStore` (which can be fine with a small store), with `useStore(itemStore, hasRelevantUpdates)` the `ItemCard` component has a more targeted subscription to the store: a re-render will only be triggered if the `revision` property of the item with the given `id` has changed.
+While `useStore(itemStore)` in this component would trigger a re-render in response to any changes in the `itemStore` (which can be fine with a small store), with `useStore(itemStore, shouldUpdate)` the `ItemCard` component has a more targeted subscription to the store: in this example, a re-render will only be triggered if the `revision` property of the item with the given `id` has changed.
 
 ## Providing shared state
 
