@@ -5,27 +5,35 @@ export type SetStoreState<T> = Store<T>["setState"];
 export type ShouldUpdateCallback<T> = (nextState: T, prevState: T) => boolean;
 export type ShouldUpdate<T> = boolean | ShouldUpdateCallback<T>;
 
+/**
+ * Returns the state value of `store` passed as the parameter and
+ * a function to update the store state value.
+ *
+ * @example
+ * ```js
+ * let [value, setValue] = useStore(store);
+ * ```
+ *
+ * The optional second parameter `shouldUpdate` controls whether
+ * the component using this hook should be updated in response to
+ * the store updates, which is set to `true` by default.
+ *
+ * `shouldUpdate` can be set to `false` to prevent subscription
+ * to the store updates. Use case: if the component only requires
+ * the store state setter but not the store state value, the
+ * component may not need to respond to the store updates at all:
+ *
+ * @example
+ * ```js
+ * let [, setValue] = useStore(store, false);
+ * ```
+ *
+ * `shouldUpdate` can also be a function `(nextState, prevState) => boolean`
+ * to make the component respond only to specific store state changes,
+ * when this function returns `true`.
+ */
 export function useStore<T>(
   store: Store<T>,
-  /**
-   * Controls whether the component should be updated in response
-   * to the store updates.
-   *
-   * @defaultValue `true`
-   *
-   * `shouldUpdate` can be set to `false` to prevent subscription
-   * to the store updates. Use case: when the component only requires
-   * the store state setter but not the store state value, the
-   * component may not need to respond to the store updates:
-   *
-   * ```ts
-   * let [, setValue] = useStore(store, false);
-   * ```
-   *
-   * `shouldUpdate` can be set to a function `(nextState, prevState) => boolean`
-   * to make the component respond only to specific store state changes,
-   * when this function returns `true`.
-   */
   shouldUpdate: ShouldUpdate<T> = true,
 ): [T, SetStoreState<T>] {
   if (!isStore(store)) throw new Error("'store' is not an instance of Store");
