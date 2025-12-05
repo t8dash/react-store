@@ -45,9 +45,14 @@ export function useStore<T>(
   let initialStoreRevision = useRef(store.revision);
 
   useEffect(() => {
+    // Use case: a one-time subscription to this event allows to
+    // initialize the store state on the client without causing a
+    // hydration error.
+    store.emit("effect");
+
     if (!shouldUpdate) return;
 
-    let unsubscribe = store.onUpdate((nextState, prevState) => {
+    let unsubscribe = store.on("update", (nextState, prevState) => {
       if (
         typeof shouldUpdate !== "function" ||
         shouldUpdate(nextState, prevState)
