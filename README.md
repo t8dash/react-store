@@ -4,8 +4,11 @@
 
 [![npm](https://img.shields.io/npm/v/@t8/react-store?labelColor=345&color=46e)](https://www.npmjs.com/package/@t8/react-store) ![Lightweight](https://img.shields.io/bundlephobia/minzip/@t8/react-store?label=minzip&labelColor=345&color=46e) ![CSR ✓](https://img.shields.io/badge/CSR-✓-345?labelColor=345) ![SSR ✓](https://img.shields.io/badge/SSR-✓-345?labelColor=345)
 
-**Why?** To fill the gap with a state management lib that at the same time: (1) has a simple API introducing as few new entities as possible, (2) closely follows the React's `useState()` pattern of initializing and manipulating the state to fulfill the common task of migration from local state to shared state quickly without sizable rewrites, (3) doesn't internally make use of global stores or other variables by default and works smoothly with SSR with regular React Contexts.
+**Why?** To fill the gap with a state management lib that at the same time: (1) has a simple API introducing as few new entities as possible, (2) closely follows the React's `useState()` pattern of initializing and manipulating the state to fulfill the common task of migration from local state to shared state quickly without sizable rewrites, (3) doesn't internally make use of global stores or other global variables by default and works smoothly with SSR with regular React Contexts.
 
+**Features**: `useState()`-like API for shared state, quick transition from local state, no boilerplate, easily integrates with Immer, SSR- and CSR-compatible.
+
+<!-- docsgen-show-start --
 ```diff
 + let store = new Store(0);
 
@@ -20,12 +23,7 @@
     return <button onClick={handleClick}>+ {counter}</button>;
   };
 ```
-
-- Similar to `useState()`
-- Quick transition from local state
-- No boilerplate
-- Easily integrates with Immer
-- SSR- and CSR-compatible
+-- docsgen-show-end -->
 
 Installation: `npm i @t8/react-store`
 
