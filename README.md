@@ -171,16 +171,16 @@ Immer can be used with `useStore()` just the same way as [with `useState()`](htt
 
 The ready-to-use hook from the [T8 React Pending](https://github.com/t8js/react-pending) package helps manage shared async action state without disturbing the app's state management and actions' code.
 
-## Remount-persistent state
+## Persistence across remounts
 
 A standalone store initialized outside a component can be used by the component as remount-persistent state, whether used by other components or not.
 
 ## Persistence across page reloads
 
 ```js
-import { Store, persist } from "@t8/react-store";
+import { PersistentStore } from "@t8/react-store";
 
-let counterStore = persist(new Store(0), "counter");
+let counterStore = new PersistentStore(0, "counter");
 ```
 
-Whenever it's updated, `counterStore` above will save its state to the `"counter"` key of `localStorage`. (Pass `true` as the third parameter of `persist()` to use `sessionStorage` instead of `localStorage`.) `counterStore` returned from `persist()` is the same store passed as the first parameter enhanced to be persistent across page reloads.
+Whenever it's updated, `counterStore` above will save its state to the `"counter"` key of `localStorage`. (Pass `true` as the third parameter of `new PersistentStore()` to use `sessionStorage` instead of `localStorage`.) Also, the store's initial state value is restored from the browser storage. Otherwise, `counterStore` works pretty much like a regular store described above.
