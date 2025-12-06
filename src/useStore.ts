@@ -1,4 +1,4 @@
-import { isStore, type Store } from "@t8/store";
+import { isPersistentStore, isStore, type Store } from "@t8/store";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export type SetStoreState<T> = Store<T>["setState"];
@@ -45,14 +45,11 @@ export function useStore<T>(
   let initialStoreRevision = useRef(store.revision);
 
   useEffect(() => {
-    // Use case: a one-time subscription to this event allows to
-    // initialize the store state on the client without causing a
-    // hydration error.
-    store.emit("effect");
+    if (isPersistentStore<T>(store)) store.syncOnce();
 
     if (!shouldUpdate) return;
 
-    let unsubscribe = store.on("update", (nextState, prevState) => {
+    let unsubscribe = store.onUpdate((nextState, prevState) => {
       if (
         typeof shouldUpdate !== "function" ||
         shouldUpdate(nextState, prevState)
