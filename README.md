@@ -4,9 +4,9 @@
 
 [![npm](https://img.shields.io/npm/v/@t8/react-store?labelColor=345&color=46e)](https://www.npmjs.com/package/@t8/react-store) ![Lightweight](https://img.shields.io/bundlephobia/minzip/@t8/react-store?label=minzip&labelColor=345&color=46e) ![CSR ✓](https://img.shields.io/badge/CSR-✓-345?labelColor=345) ![SSR ✓](https://img.shields.io/badge/SSR-✓-345?labelColor=345)
 
-**Why?** To fill the gap with a state management lib that at the same time: (1) has a simple API introducing as few new entities as possible, (2) closely follows the React's `useState()` pattern of initializing and manipulating the state to fulfill the common task of migration from local state to shared state quickly without sizable rewrites, (3) doesn't internally make use of global stores or other global variables by default and works smoothly with SSR with regular React Contexts.
+**Why?** To have an easy-to-use state management lib for React apps requiring least effort to migrate from local state and to quickly set up shared state from scratch, whether with SSR or without. Other approaches, including Redux Toolkit, Zustand, Jotai, MobX, invariably depart from this picture to varying degrees.
 
-**Features**: `useState()`-like API for shared state, quick transition from local state, no boilerplate, easily integrates with Immer, SSR- and CSR-compatible.
+This picture is achieved here by (1) having a simple API introducing as few new entities as possible, (2) closely following the React's `useState()` pattern of initializing and manipulating the state to avoid boilerplate and sizable rewrites in the common task of migration from local state to shared state, (3) working smoothly with SSR with regular React Contexts without requiring a specifically designed setup and without internally making use of global stores or other global variables by default.
 
 <!-- docsgen-show-start --
 ```diff
