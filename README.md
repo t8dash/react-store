@@ -177,12 +177,12 @@ A standalone store initialized outside a component can be used by the component 
 
 ## Persistence across page reloads
 
+Replacing `new Store(data)` with `new PersistentStore(data, storageKey)` as shown below gets the store's state value initially restored from and saved whenever updated to `storageKey` in `localStorage`. (Pass `{ session: true }` as the `options` parameter of `new PersistentStore(data, storageKey, options?)` to use `sessionStorage` instead of `localStorage`.) Otherwise, persistent stores work pretty much like regular stores described above.
+
 ```js
 import { PersistentStore } from "@t8/react-store";
 
 let counterStore = new PersistentStore(0, "counter");
 ```
-
-The store's state value is initially restored from and saved whenever updated to the `"counter"` key of `localStorage`. (Pass `{ session: true }` as the `options` parameter of `new PersistentStore(data, storageKey, options?)` to use `sessionStorage` instead of `localStorage`.) Otherwise, `counterStore` works pretty much like a regular store described above.
 
 The way data gets saved to and restored from a browser storage entry (including filtering out certain data or otherwise rearranging the saved data) can be overridden by setting `options.serialize` and `options.deserialize` in `new PersistentStore(data, storageKey, options?)`. By default, they are `JSON.stringify()` and `JSON.parse()`.
