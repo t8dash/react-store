@@ -183,4 +183,6 @@ import { PersistentStore } from "@t8/react-store";
 let counterStore = new PersistentStore(0, "counter");
 ```
 
-Whenever it's updated, `counterStore` above will save its state to the `"counter"` key of `localStorage`. (Pass `true` as the third parameter of `new PersistentStore()` to use `sessionStorage` instead of `localStorage`.) Also, the store's initial state value is restored from the browser storage. Otherwise, `counterStore` works pretty much like a regular store described above.
+The store's state value is initially restored from and saved whenever updated to the `"counter"` key of `localStorage`. (Pass `{ session: true }` as the `options` parameter of `new PersistentStore(data, storageKey, options?)` to use `sessionStorage` instead of `localStorage`.) Otherwise, `counterStore` works pretty much like a regular store described above.
+
+The way data gets saved to and restored from a browser storage entry (including filtering out certain data or otherwise rearranging the saved data) can be overridden by setting `options.serialize` and `options.deserialize` in `new PersistentStore(data, storageKey, options?)`. By default, they are `JSON.stringify()` and `JSON.parse()`.
