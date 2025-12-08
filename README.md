@@ -68,6 +68,8 @@ Moving the local state to the full-fledged shared state:
 
 🔹 The optional `false` parameter in `useStore(store, false)` (as in `<ResetButton>` above) tells the hook not to subscribe the component to tracking the store state updates. The common use case is when a component makes use of the store state setter without using the store state value.
 
+🔹 With SSR, it's common practice to put shared values into React Context rather than module-level variables to avoid cross-request data sharing. The same applies to stores, see an example in the [Sharing state via Context](#sharing-state-via-context) section below.
+
 🔹 Similarly to instances of the built-in data container classes, such as `Set` and `Map`, stores are created as `new Store(data)` rather than with a factory function.
 
 ## Single store or multiple stores
@@ -103,7 +105,7 @@ let ItemCard = ({ id }) => {
 
 While `useStore(itemStore)` in this component would trigger a re-render in response to any changes in the `itemStore` (which can be fine with a small store), with `useStore(itemStore, shouldUpdate)` the `ItemCard` component has a more targeted subscription to the store: in this example, a re-render will only be triggered if the `revision` property of the item with the given `id` has changed.
 
-## Providing shared state
+## Sharing state via Context
 
 Shared state can be provided to the app by means of a regular React Context provider:
 
