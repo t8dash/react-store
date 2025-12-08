@@ -36,7 +36,8 @@ export function useStore<T>(
   store: Store<T>,
   shouldUpdate: ShouldUpdate<T> = true,
 ): [T, SetStoreState<T>] {
-  if (!isStore<T>(store)) throw new Error("'store' is not an instance of Store");
+  if (!isStore<T>(store))
+    throw new Error("'store' is not an instance of Store");
 
   let [, setRevision] = useState(-1);
 
