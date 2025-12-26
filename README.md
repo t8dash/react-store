@@ -2,11 +2,11 @@
 
 React app state management condensed to the essentials
 
-[![npm](https://img.shields.io/npm/v/@t8/react-store?labelColor=345&color=46e)](https://www.npmjs.com/package/@t8/react-store) ![Lightweight](https://img.shields.io/bundlephobia/minzip/@t8/react-store?label=minzip&labelColor=345&color=46e) ![CSR ✓](https://img.shields.io/badge/CSR-✓-345?labelColor=345) ![SSR ✓](https://img.shields.io/badge/SSR-✓-345?labelColor=345)
+[![npm](https://img.shields.io/npm/v/@t8/react-store?labelColor=345&color=46e)](https://www.npmjs.com/package/@t8/react-store) ![Lightweight](https://img.shields.io/bundlephobia/minzip/@t8/react-store?label=minzip&labelColor=345&color=46e)
 
-**Why?** To get the shortest migration path from local state to shared state and a quick way to set up shared state from scratch, whether with SSR or without. Other approaches, like Redux Toolkit, Zustand, Jotai, MobX, depart from this picture to varying degrees.
+**♥** Quickest migration from local state&nbsp;&middot; Familiar `useState()` pattern&nbsp;&middot; SSR without workarounds&nbsp;&middot; State management shaved with Occam's razor
 
-This picture is achieved here by (1) having a simple API introducing as few new entities as possible, (2) closely following the React's `useState()` pattern of initializing and manipulating the state to avoid boilerplate and sizable rewrites with the common task of migration from local state to shared state, (3) working smoothly with SSR with regular React Contexts without requiring a specifically designed setup and without internally making use of global stores or other global variables by default.
+**✓** Concise API&nbsp;&middot; CSR&nbsp;&middot; SSR&nbsp;&middot; Integrable with Immer
 
 <!-- docsgen-show-start --
 ```diff
