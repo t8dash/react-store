@@ -1,7 +1,7 @@
 {
   "name": "@t8/react-store",
   "version": "1.2.7",
-  "description": "A state management lib for React apps aligned with React's state pattern, condensed to the essentials",
+  "description": "React app state management condensed to the essentials",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
